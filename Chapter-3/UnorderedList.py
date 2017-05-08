@@ -15,7 +15,7 @@ class Node:
     def setNext(self,newnext):
         self.next = newnext
 
-class UnorderList:
+class UnorderedList:
     def __init__(self):
         self.head = None
 
@@ -40,7 +40,7 @@ class UnorderList:
         count = 0
         while current != None:
             count = count + 1
-            cunrrent = current.getNext()
+            current = current.getNext()
 
         return count
 
@@ -88,7 +88,7 @@ class UnorderList:
     #index(item) 返回项在列表中的位置。它需要 item 作为参数并返回索引。假定该项在列表中。
     def index(self, item):
         current = self.head
-        count = 0
+        count = -1
         found = False
 
         while current != None and not found:
@@ -135,7 +135,8 @@ class UnorderList:
         previous = None
 
         #遍历到游标current指向UnorderList的尾节点
-        while current != None:
+        while current.getNext() != None:
+            previous = current
             current = current.getNext()
 
         #处理头结点为尾节点的情况
@@ -150,15 +151,16 @@ class UnorderList:
 
     #pop(pos) 删除并返回位置 pos 处的项。它需要 pos 作为参数并返回项。假定该项在列表中。
     def pop_pos(self, pos):
+        '''
         if pos > self.size() or pos < 0:
             return "Out of index!"
-
+        '''
         current = self.head
-        count = 0
+        count = -1
         previous = None
 
         #遍历节点，直到将current游标移动到pos位置为止
-        while current != None and count != pos:
+        while current.getNext() != None and count != pos:
             count = count + 1
             previous = current
             current = current.getNext()
@@ -172,3 +174,67 @@ class UnorderList:
             previous.setNext(current.getNext())
 
         return current.getData()
+
+mylist = UnorderedList()
+
+mylist.add(31)
+mylist.add(77)
+mylist.add(17)
+mylist.add(93)
+mylist.add(26)
+mylist.add(54)
+
+
+
+print(mylist.size())
+print(mylist.search(93))
+print(mylist.search(100))
+
+mylist.add(100)
+print(mylist.search(100))
+print(mylist.size())
+
+print("---------------------")
+print("检验自己写的index()函数")
+print(mylist.index(93))
+
+
+print("---------------------")
+print("检验自己写的append()函数")
+mylist.append(106)
+print(mylist.size())
+print(mylist.index(106))
+
+print("---------------------")
+print("检验自己写的insert()函数")
+mylist.insert(5,666)
+print(mylist.size())
+print(mylist.index(666))
+
+print("---------------------")
+print("检验insert的特殊情况")
+mylist.insert(0,999)
+print(mylist.size())
+print(mylist.index(999))
+
+print("---------------------")
+print("检验自己写的pop_last()函数")
+print(mylist.pop_last())
+print(mylist.size())
+
+print("---------------------")
+print("检验自己写的pop_pos()函数")
+print("应该返回93")
+print(mylist.pop_pos(3))
+print(mylist.size())
+print("---------------------")
+
+print(mylist.pop_last())
+print(mylist.pop_last())
+print(mylist.pop_last())
+print(mylist.pop_last())
+print(mylist.pop_last())
+print(mylist.pop_last())
+print(mylist.pop_last())
+print(mylist.pop_last())
+

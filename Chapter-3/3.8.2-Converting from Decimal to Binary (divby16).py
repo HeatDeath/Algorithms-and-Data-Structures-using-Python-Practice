@@ -17,17 +17,22 @@ class Stack:
     def size(self):
         return len(self.items)
 
-def divideBy2(decNumber):
+def baseConverter(decNumber,base):
     remstack = Stack()
     while decNumber > 0:
-        rem = decNumber % 2
+        rem = decNumber % base
         remstack.push(rem)
-        decNumber = decNumber // 2
+        decNumber = decNumber // base
 
     binString =""
+
+    digits = '0123456789ABCDEF'
+
     while not remstack.isEmpty():
-        binString = binString + str(remstack.pop())
+        binString = binString + digits[remstack.pop()]
 
     return binString
 
-print(divideBy2(42))
+print(baseConverter(42,16))
+
+print(baseConverter(47,8))
